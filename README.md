@@ -4,7 +4,7 @@
     * Create test set with sound and images
     * Create pure audio set for training audio-only model
     * Create pure image set for training image only model
-    * Implement image+audio model, image-only model, audio-only model. 
+    * Implement image+audio model(CNN, Contrastive, Generative), image-only model, audio-only model. 
     * Training and evaluation of all the models (accuracy, t-SNE)
 * Second Stage: 
     * Training model with different amount of data(5 images/audios per class, 10 images/audios per class, 20 images/audios per class)
