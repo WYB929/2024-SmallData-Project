@@ -1,0 +1,3 @@
+batch_size: 256
+shuffle: true
+num_workers: 4
