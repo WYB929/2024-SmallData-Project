@@ -1,0 +1,8 @@
+defaults:
+  - dataset: dataset
+  - dataloader: dataloader
+  - model: classifier_model
+  - train: train
+  - _self_: default
+
+output_dir: ./out_classifier

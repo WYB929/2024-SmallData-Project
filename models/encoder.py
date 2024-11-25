@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
+import torchvision
 from models.residual import ResidualStack
 
 
@@ -42,12 +43,45 @@ class Encoder(nn.Module):
         return self.conv_stack(x)
 
 
+class ResNetEncoder(nn.Module):
+    """
+    Encoder module following the structure of ResNet-18, removing the fully connected layer.
+
+    Inputs:
+    - in_dim: Number of input channels (e.g., 3 for RGB images).
+    """
+
+    def __init__(self, in_dim=3):
+        super(ResNetEncoder, self).__init__()
+        self.resnet = torchvision.models.resnet18()
+
+        # Modify the first convolutional layer to match input dimensions
+        self.resnet.conv1 = nn.Conv2d(
+            in_dim, 64, kernel_size=7, stride=2, padding=3, bias=False
+        )
+
+        # Remove the average pool and FC layer
+        self.resnet = nn.Sequential(
+            self.resnet.conv1,
+            self.resnet.bn1,
+            self.resnet.relu,
+            self.resnet.maxpool,
+            self.resnet.layer1,
+            self.resnet.layer2,
+            self.resnet.layer3,
+            self.resnet.layer4
+        )
+
+    def forward(self, x):
+        return self.resnet(x)
+
 if __name__ == "__main__":
     # random data
-    x = np.random.random_sample((3, 40, 40, 200))
-    x = torch.tensor(x).float()
+    x = torch.randn(16, 3, 224, 224)  # Batch of 16 RGB images of size 224x224
 
-    # test encoder
-    encoder = Encoder(40, 128, 3, 64)
+# Initialize encoder
+    encoder = ResNetEncoder(in_dim=3)
+
+    # Forward pass
     encoder_out = encoder(x)
-    print('Encoder out shape:', encoder_out.shape)
+    print("Encoder output shape:", encoder_out.shape)  # Expected shape: [16, 512, 7, 7]

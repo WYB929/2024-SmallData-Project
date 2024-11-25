@@ -1,3 +1,4 @@
 train_iterations: 1000
-alpha: 10
 save_every: 100
+eval_every: 50
+learning_rate: 0.0003
