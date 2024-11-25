@@ -40,6 +40,7 @@ def main(cfg: DictConfig):
 def train(model, dataloader, train_iterations, alpha, save_every, output_dir):
     os.makedirs(output_dir, exist_ok=True)
     device = "cuda" if torch.cuda.is_available() else "cpu"
+    print(device)
     model.to(device)
     opt = torch.optim.AdamW(model.parameters(), lr=3e-4)
 
@@ -61,11 +62,17 @@ def train(model, dataloader, train_iterations, alpha, save_every, output_dir):
             f"rec loss: {rec_loss.item():.3f} | "
             f"vq loss: {vq_loss.item():.3f} | "
             f"active %: {indices.unique().numel() / model.vq.codebook_size * 100:.3f}"
+            
         )
 
         if step % save_every == 0 or step == train_iterations - 1:
             save_images(x, model(x)[0], step, output_dir, mean, std)
-
+            
+    torch.save({
+                "model_state_dict": model.state_dict(),
+                "optimizer_state_dict": opt.state_dict(),
+                "train_step": step,
+            }, "out/checkpoint.pt")
 
 if __name__ == "__main__":
     main()

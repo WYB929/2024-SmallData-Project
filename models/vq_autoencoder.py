@@ -28,7 +28,7 @@ class SimpleVQAutoEncoder(nn.Module):
         vq_out, indices, vq_loss = self.vq(z_flat)
         # Reshape back to 2D feature map
         vq_out = rearrange(vq_out, "b (h w) d -> b d h w", h=z.size(-2), w=z.size(-1))
-        print(vq_out.shape)
+        # print(vq_out.shape)
         out = self.decoder(vq_out)
         return out, indices, vq_loss
 
