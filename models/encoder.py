@@ -21,8 +21,11 @@ class Encoder(nn.Module):
 
     """
 
-    def __init__(self, in_dim, h_dim=256, n_res_layers=2, res_h_dim=32):
+    def __init__(self, in_dim):
         super(Encoder, self).__init__()
+        h_dim=128
+        n_res_layers=2
+        res_h_dim=32
         kernel = 4
         stride = 2
         self.conv_stack = nn.Sequential(

@@ -18,8 +18,11 @@ class Decoder(nn.Module):
 
     """
 
-    def __init__(self, in_dim=32, h_dim=256, n_res_layers=2, res_h_dim=32):
+    def __init__(self, in_dim=32):
         super(Decoder, self).__init__()
+        h_dim=256
+        n_res_layers=2
+        res_h_dim=32
         kernel = 4
         stride = 2
 

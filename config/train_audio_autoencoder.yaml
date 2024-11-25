@@ -1,0 +1,8 @@
+defaults:
+  - dataset: dataset
+  - dataloader: dataloader
+  - model: model
+  - train: train  # Use the correct file name
+
+
+output_dir: ./out
