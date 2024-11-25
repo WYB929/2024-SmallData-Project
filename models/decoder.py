@@ -18,7 +18,7 @@ class Decoder(nn.Module):
 
     """
 
-    def __init__(self, in_dim, h_dim, n_res_layers, res_h_dim):
+    def __init__(self, in_dim=32, h_dim=256, n_res_layers=2, res_h_dim=32):
         super(Decoder, self).__init__()
         kernel = 4
         stride = 2
@@ -47,7 +47,7 @@ class ResNetDecoder(nn.Module):
     - out_dim: Number of output channels (e.g., 3 for RGB images).
     """
 
-    def __init__(self, in_dim=512, out_dim=3):
+    def __init__(self, in_dim=512):
         super(ResNetDecoder, self).__init__()
 
         # Layer configurations for transposed ResNet (reverse of ResNet-18)
@@ -73,7 +73,7 @@ class ResNetDecoder(nn.Module):
             nn.ReLU(inplace=True),
 
             # Final upsampling block
-            nn.ConvTranspose2d(64, out_dim, kernel_size=4, stride=2, padding=1),  # 112x112 -> 224x224
+            nn.ConvTranspose2d(64, 3, kernel_size=4, stride=2, padding=1),  # 112x112 -> 224x224
             nn.Tanh()  # Normalize output to [-1, 1]
         )
 

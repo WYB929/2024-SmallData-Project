@@ -5,7 +5,7 @@ encoder:
 decoder:
   _target_: models.decoder.ResNetDecoder
   in_dim: 512
-  out_dim: 3
+
 
 h_dim: 512
 num_quantizers: 3

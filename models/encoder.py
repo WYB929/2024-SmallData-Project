@@ -21,7 +21,7 @@ class Encoder(nn.Module):
 
     """
 
-    def __init__(self, in_dim, h_dim, n_res_layers, res_h_dim):
+    def __init__(self, in_dim, h_dim=256, n_res_layers=2, res_h_dim=32):
         super(Encoder, self).__init__()
         kernel = 4
         stride = 2
