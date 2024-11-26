@@ -58,7 +58,6 @@ class AnimalDataset(Dataset):
                     audio_path = sound_folder / audio_name
                     if audio_name.endswith('.wav'):  # Valid audio files
                         self.audio_paths.append(audio_path)
-                        self.labels.append(idx)
 
     def __len__(self):
         # Return the total number of samples
